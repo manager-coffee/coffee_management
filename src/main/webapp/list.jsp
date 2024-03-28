@@ -88,6 +88,7 @@
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
+        <form action="/coffee" method="post">
         <div class="input-group mb-3">
             <input
                     type="text"
@@ -95,13 +96,16 @@
                     placeholder="Recipient's username"
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
+                    name="name"
             />
+            <input type="hidden" name="action" value="search">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">
+                <button class="btn btn-outline-secondary" type="submit"  >
                     Search
                 </button>
             </div>
         </div>
+        </form>
         <div
                 class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
         >
@@ -148,7 +152,8 @@
                         ></div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
-                                <a class="btn btn-outline-dark mt-auto" href="#">edit</a>
+                                <a class="btn btn-outline-dark mt-auto" href="/coffee?action=update&product_id=${product.product_id}">
+                                    edit</a>
                                 <a class="btn btn-outline-dark mt-auto" href="#"
                                 >Add to cart</a
                                 >
