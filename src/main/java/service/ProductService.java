@@ -1,6 +1,7 @@
 package service;
 
 import dto.ProductDto;
+import model.Product;
 import repository.IProductRepository;
 import repository.ProductRepository;
 
@@ -13,5 +14,25 @@ public class ProductService implements IProductService{
     public List<ProductDto> findAll() throws SQLException {
         return iProductRepository.findAll();
 
+    }
+
+    @Override
+    public void createPro(Product product) throws SQLException {
+        iProductRepository.createPro(product);
+    }
+
+    @Override
+    public void findById(Integer id) throws SQLException {
+        iProductRepository.findById(id);
+    }
+
+    @Override
+    public void updatePro(Product product) throws SQLException {
+        iProductRepository.updatePro(product);
+    }
+
+    @Override
+    public Product checkId(Integer id) throws SQLException {
+        return iProductRepository.checkId(id);
     }
 }

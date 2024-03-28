@@ -1,6 +1,8 @@
 package controller;
 
 import dto.ProductDto;
+import model.Category;
+import model.Product;
 import repository.IProductRepository;
 import service.CategoryService;
 import service.ICategoryService;
@@ -29,6 +31,27 @@ public class ProductController extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "create":
+                try {
+                    showCreate(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "remove":
+                try {
+                    showRemove(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "update":
+                try {
+                    showUpdate(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
                 try {
                     showList(req, resp);
@@ -38,15 +61,77 @@ public class ProductController extends HttpServlet {
         }
     }
 
+    private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+        Integer id = Integer.valueOf(req.getParameter("id"));
+        Product product=iProductService.checkId(id);
+        List<Category> category = iCategoryService.findAllCate();
+        req.setAttribute("category", category);
+    }
+
+    private void showRemove(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+        Integer id = Integer.valueOf(req.getParameter("id"));
+        iProductService.findById(id);
+        resp.sendRedirect("/coffee");
+    }
+
+    private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+        List<Category> category = iCategoryService.findAllCate();
+        req.setAttribute("category", category);
+        req.getRequestDispatcher("create.jsp").forward(req, resp);
+    }
+
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         List<ProductDto> product = iProductService.findAll();
         req.setAttribute("product", product);
-        req.getRequestDispatcher("/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/list.jsp").forward(req, resp);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+
+        }
+        switch (action) {
+            case "create":
+                try {
+                    createProduct(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "update":
+                try {
+                    updateProduct(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+        }
+    }
+
+    private void updateProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+        int id = Integer.parseInt(req.getParameter("product_id"));
+        String name = req.getParameter("product_name");
+        int price = Integer.parseInt(req.getParameter("price"));
+        int category_id = Integer.parseInt(req.getParameter("category_id"));
+        String image_url = req.getParameter("image_url");
+        Product product = new Product(name, price, category_id, image_url);
+        product.setProduct_id(id);
+        iProductService.updatePro(product);
+        resp.sendRedirect("/coffee");
+    }
+
+    private void createProduct(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+        String name = req.getParameter("product_name");
+        int price = Integer.parseInt(req.getParameter("price"));
+        int category_id = Integer.parseInt(req.getParameter("category_id"));
+        String image_url = req.getParameter("image_url");
+        Product product = new Product(name, price, category_id, image_url);
+        iProductService.createPro(product);
+        resp.sendRedirect("/coffee");
 
     }
 }
