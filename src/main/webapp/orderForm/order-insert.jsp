@@ -9,17 +9,16 @@
 <div class="container mt-4">
     <h2>Create New Order</h2>
     <form action="orders" method="post">
-        <label for="product">Select a product:</label>
-        <select id="product" name="productId">
-            <c:forEach items="${products}" var="product">
-                <option value="${product.product_id}">${product.product_name}</option>
-            </c:forEach>
-        </select>
+
         <input type="hidden" name="action" value="insert">
 
         <div class="form-group">
-            <label>Customer ID:</label>
-            <input type="number" name="customerId" class="form-control" required>
+            <label for="users">Select a users:</label>
+            <select id="users" name="productId">
+                <c:forEach items="${services}" var="service">
+                    <option value="${service.id}">${service.id}</option>
+                </c:forEach>
+            </select>
         </div>
 
         <div class="form-group">
@@ -38,8 +37,12 @@
         </div>
 
         <div class="form-group">
-            <label>Product ID:</label>
-            <input type="number" name="productId" class="form-control" required>
+            <label for="product">Select a product:</label>
+            <select id="product" name="productId">
+                <c:forEach items="${products}" var="product">
+                    <option value="${product.product_id}">${product.product_name}</option>
+                </c:forEach>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
