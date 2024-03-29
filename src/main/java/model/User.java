@@ -3,25 +3,25 @@ package model;
 public class User {
     private int id;
     private String name;
-    private int number;
-    private String country;
+    private int phone_number;
+    private String address;
 
 
 
     public User() {
     }
 
-    public User(int id, String name, int number, String country) {
+    public User(int id, String name, int phone_number, String address) {
         this.id = id;
         this.name = name;
-        this.number = number;
-        this.country = country;
+        this.phone_number = phone_number;
+        this.address = address;
     }
 
-    public User(String name, int number, String country) {
+    public User(String name, int phone_number, String address) {
         this.name = name;
-        this.number = number;
-        this.country = country;
+        this.phone_number = phone_number;
+        this.address = address;
     }
 
     public int getId() {
@@ -40,19 +40,19 @@ public class User {
         this.name = name;
     }
 
-    public int getNumber() {
-        return number;
+    public int getPhone_number() {
+        return phone_number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setPhone_number(int phone_number) {
+        this.phone_number = phone_number;
     }
 
-    public String getCountry() {
-        return country;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

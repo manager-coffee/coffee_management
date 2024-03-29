@@ -32,9 +32,10 @@
                 <th>Country:</th>
                 <td>
                     <select name="country" id="country" >
-                        <option value="Việt Nam" <c:if test="${user.country eq 'Việt Nam'}">selected</c:if>>Việt Nam</option>
-                        <option value="Mỹ" <c:if test="${user.country eq 'Mỹ'}">selected</c:if>>Mỹ</option>
-                        <option value="Anh" <c:if test="${user.country eq 'Anh'}">selected</c:if>>Anh</option>
+                        <option value="Việt Nam" <c:if test="${user.address eq 'Việt Nam'}">selected</c:if>>Việt
+                            Nam</option>
+                        <option value="Mỹ" <c:if test="${user.address eq 'Mỹ'}">selected</c:if>>Mỹ</option>
+                        <option value="Anh" <c:if test="${user.address eq 'Anh'}">selected</c:if>>Anh</option>
                     </select>
                 </td>
             </tr>

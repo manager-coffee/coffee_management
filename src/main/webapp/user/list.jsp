@@ -20,16 +20,16 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Number</th>
-            <th>Country</th>
+            <th>phone_number</th>
+            <th>address</th>
             <th>Actions</th>
         </tr>
         <c:forEach var="user" items="${listUser}">
             <tr>
                 <td><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
-                <td><c:out value="${user.number}"/></td>
-                <td><c:out value="${user.country}"/></td>
+                <td><c:out value="${user.phone_number}"/></td>
+                <td><c:out value="${user.address}"/></td>
                 <td>
                     <a href="/users?action=edit&id=${user.id}" class="btn btn-warning">Edit</a>
                     <a href="/users?action=delete&id=${user.id}" class="btn btn-danger">Delete</a>
