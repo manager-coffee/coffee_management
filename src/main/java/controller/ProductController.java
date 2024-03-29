@@ -61,11 +61,14 @@ public class ProductController extends HttpServlet {
         }
     }
 
-    private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
-        Integer id = Integer.valueOf(req.getParameter("id"));
+    private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+        Integer id = Integer.valueOf(req.getParameter("product_id"));
         Product product=iProductService.checkId(id);
         List<Category> category = iCategoryService.findAllCate();
+        req.setAttribute("product",product);
         req.setAttribute("category", category);
+        req.getRequestDispatcher("update.jsp").forward(req,resp);
+
     }
 
     private void showRemove(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
@@ -109,7 +112,26 @@ public class ProductController extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "search":
+                try {
+                    searchProduct(req,resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
         }
+    }
+
+    private void searchProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+        String name=req.getParameter("name");
+        if(name==null){
+            name="";
+        }
+        List<ProductDto> product=iProductService.SearchName(name);
+        req.setAttribute("product",product);
+        req.setAttribute("name",name);
+        req.getRequestDispatcher("list.jsp").forward(req,resp);
+
     }
 
     private void updateProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {

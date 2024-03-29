@@ -35,4 +35,9 @@ public class ProductService implements IProductService{
     public Product checkId(Integer id) throws SQLException {
         return iProductRepository.checkId(id);
     }
+
+    @Override
+    public List<ProductDto> SearchName(String name) throws SQLException {
+        return iProductRepository.SearchName(name);
+    }
 }
