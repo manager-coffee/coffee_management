@@ -4,6 +4,7 @@ import service.ICategoryService;
 
 public class Category {
 private Integer id;
+
 private String name;
 
     public Category(Integer id, String name) {

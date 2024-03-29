@@ -17,4 +17,6 @@ public interface IProductService {
 
     Product checkId(Integer id) throws SQLException;
 
+    List<ProductDto> SearchName(String name) throws SQLException;
+
 }
