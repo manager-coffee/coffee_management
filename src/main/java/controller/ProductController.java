@@ -3,7 +3,6 @@ package controller;
 import dto.ProductDto;
 import model.Category;
 import model.Product;
-import repository.IProductRepository;
 import service.CategoryService;
 import service.ICategoryService;
 import service.IProductService;

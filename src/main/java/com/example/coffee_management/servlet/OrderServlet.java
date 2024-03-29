@@ -3,13 +3,16 @@ package com.example.coffee_management.servlet;
 
 
 import DB.DBConnection;
+import controller.UserController;
 import dao.OrderDAO;
 import dto.OrderDto;
 import dto.ProductDto;
 import model.Order;
 import model.Product;
+import model.User;
 import service.IProductService;
 import service.ProductService;
+import service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +34,7 @@ public class OrderServlet extends HttpServlet {
     private OrderDAO orderDAO;
 
     private IProductService productService = new ProductService();
-
+    private UserService userService = new UserService();
 
 
     public void init(){
@@ -81,16 +84,6 @@ public class OrderServlet extends HttpServlet {
     }
 
     private void listOrders(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
-        String searchQuery = req.getParameter("search");
-        String sortBy = req.getParameter("sortBy");
-        String sortDirection = req.getParameter("sortDirection");
-
-        if (sortBy == null || sortBy.isEmpty()) {
-            sortBy = "order_date";
-        }
-        if (sortDirection == null || sortDirection.isEmpty()) {
-            sortDirection = "ASC";
-        }
         List<OrderDto> orderList = orderDAO.orderList();
         req.setAttribute("orderList", orderList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("orderForm/order-list.jsp");
@@ -108,6 +101,8 @@ public class OrderServlet extends HttpServlet {
 
     private void showNewForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("orderForm/order-insert.jsp");
+        List<User> services = userService.selectAllUsers();
+        req.setAttribute("services",services);
         List<ProductDto> products = this.productService.findAll();
         req.setAttribute("products", products);
         dispatcher.forward(req, resp);
